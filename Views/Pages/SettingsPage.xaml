@@ -1,0 +1,171 @@
+<Page x:Class="Wpf.Views.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#EFF6FF" Title="Setări">
+    <Page.Resources>
+        <Style x:Key="SBtn" TargetType="Button">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Padding" Value="16,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#F9FAFB"/></Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LangBtn" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="MinWidth" Value="140"/>
+            <Setter Property="Padding" Value="16,0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#EFF6FF"/>
+                    <Setter Property="BorderBrush" Value="#2563EB"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="LangBtnActive" TargetType="Button" BasedOn="{StaticResource LangBtn}">
+            <Setter Property="Background" Value="#DBEAFE"/>
+            <Setter Property="BorderBrush" Value="#2563EB"/>
+            <Setter Property="Foreground" Value="#1D4ED8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="SLbl" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#6B7280"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        <Style x:Key="SVal" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#111827"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32,24,32,32">
+            <TextBlock Text="{DynamicResource Settings_Title}" FontSize="22" FontWeight="Bold"
+                       Foreground="#111827" Margin="0,0,0,28"/>
+
+            <!-- Language section -->
+            <Border Background="White" BorderBrush="#E5E7EB" BorderThickness="1"
+                    CornerRadius="10" Padding="22,20" Margin="0,0,0,16">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                        <TextBlock Text="🌐" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource Settings_Language}" FontSize="13"
+                                   FontWeight="SemiBold" Foreground="#111827" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="{DynamicResource Settings_ChooseLang}"
+                               Foreground="#6B7280" FontSize="12" Margin="0,0,0,14"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="{DynamicResource Settings_LangRO}" Margin="0,0,10,0"
+                                Command="{Binding SetLanguageROCommand}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource LangBtn}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsRomanian}" Value="True">
+                                            <Setter Property="Background" Value="#DBEAFE"/>
+                                            <Setter Property="BorderBrush" Value="#2563EB"/>
+                                            <Setter Property="Foreground" Value="#1D4ED8"/>
+                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button Content="🇺🇸 English"
+                                Command="{Binding SetLanguageENCommand}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource LangBtn}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEnglish}" Value="True">
+                                            <Setter Property="Background" Value="#DBEAFE"/>
+                                            <Setter Property="BorderBrush" Value="#2563EB"/>
+                                            <Setter Property="Foreground" Value="#1D4ED8"/>
+                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- DB section -->
+            <Border Background="White" BorderBrush="#E5E7EB" BorderThickness="1"
+                    CornerRadius="10" Padding="22,20" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Settings_DB}" FontSize="13"
+                               FontWeight="SemiBold" Foreground="#111827" Margin="0,0,0,16"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Settings_DBServer}" Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionInfo}"            Style="{StaticResource SVal}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Settings_DBStatus}" Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding StatusMessage}"             Style="{StaticResource SVal}" Foreground="#6B7280"/>
+                    </Grid>
+                    <Button Style="{StaticResource SBtn}" Content="{DynamicResource Settings_TestConn}"
+                            Command="{Binding TestConnectionCommand}" HorizontalAlignment="Left"/>
+                    <ProgressBar Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}"
+                                 IsIndeterminate="True" Height="3" Margin="0,10,0,0"
+                                 Foreground="#2563EB" Background="Transparent" BorderThickness="0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Security section -->
+            <Border Background="White" BorderBrush="#E5E7EB" BorderThickness="1"
+                    CornerRadius="10" Padding="22,20" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Settings_Security}" FontSize="13"
+                               FontWeight="SemiBold" Foreground="#111827" Margin="0,0,0,16"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Settings_SigAlgo}"  Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="RSA-2048 + SHA-256"                  Style="{StaticResource SVal}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Settings_PassHash}" Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="PBKDF2-HMACSHA512 · 310.000 iterații" Style="{StaticResource SVal}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Settings_TokenDur}" Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="8 ore"                               Style="{StaticResource SVal}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Settings_Roles}"    Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="Administrator · Employee · Client"   Style="{StaticResource SVal}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- App info -->
+            <Border Background="White" BorderBrush="#E5E7EB" BorderThickness="1"
+                    CornerRadius="10" Padding="22,20">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Settings_AppInfo}" FontSize="13"
+                               FontWeight="SemiBold" Foreground="#111827" Margin="0,0,0,16"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Settings_Version}"   Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="1.0.0"                                Style="{StaticResource SVal}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Settings_Framework}" Style="{StaticResource SLbl}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text=".NET 10 · WPF · Dapper"               Style="{StaticResource SVal}"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

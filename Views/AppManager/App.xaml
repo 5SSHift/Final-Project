@@ -1,0 +1,22 @@
+<Application x:Class="Wpf.Views.AppManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Wpf.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Default language (will be swapped by LanguageService at startup) -->
+                <ResourceDictionary Source="/Resources/Languages/ro-RO.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter                x:Key="BoolToVis"/>
+            <converters:BooleanToColorConverter          x:Key="BoolToColor"/>
+            <converters:InverseBoolToVisibilityConverter x:Key="InvBoolToVis"/>
+            <converters:StringEqualsConverter            x:Key="StrEq"/>
+            <converters:GreaterThanZeroConverter         x:Key="GtZero"/>
+            <converters:StringNotEmptyConverter          x:Key="StrNotEmpty"/>
+            <converters:EqualityConverter                x:Key="EqConv"/>
+            <converters:BytesToImageConverter            x:Key="BytesToImage"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

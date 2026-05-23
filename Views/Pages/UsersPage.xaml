@@ -1,0 +1,91 @@
+<Page x:Class="Wpf.Views.Pages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#EFF6FF" Title="Utilizatori">
+    <Page.Resources>        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#111827"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#F3F4F6"/>
+            <Setter Property="ColumnHeaderHeight" Value="38"/>
+            <Setter Property="RowHeight" Value="36"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F9FAFB"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+        </Style>
+        <Style x:Key="FBtn" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#F3F4F6"/></Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="32,24,32,32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,18">
+            <TextBlock Text="{DynamicResource Users_Title}" FontSize="22" FontWeight="Bold" Foreground="#111827" VerticalAlignment="Center"/>
+            <Border Background="#DBEAFE" BorderBrush="#93C5FD" BorderThickness="1"
+                    Padding="10,3" Margin="12,0,0,0" CornerRadius="12" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Users.Count, StringFormat='{}{0}'}"
+                           Foreground="#1D4ED8" FontSize="12" FontWeight="Bold"/>
+            </Border>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,14">
+            <Button Style="{StaticResource FBtn}" Content="{DynamicResource Users_FilterAll}"          Command="{Binding FilterAllCommand}"/>
+            <Button Style="{StaticResource FBtn}" Content="Administrator"  Command="{Binding FilterAdminCommand}"
+                    Foreground="#DC2626" BorderBrush="#FECACA" Background="#FEF2F2"/>
+            <Button Style="{StaticResource FBtn}" Content="Employee"      Command="{Binding FilterEmployeeCommand}"
+                    Foreground="#16A34A" BorderBrush="#BBF7D0" Background="#F0FDF4"/>
+            <Button Style="{StaticResource FBtn}" Content="Client"        Command="{Binding FilterClientCommand}"
+                    Foreground="#1D4ED8" BorderBrush="#93C5FD" Background="#DBEAFE"/>
+            <TextBlock Text="{Binding StatusMessage}" Foreground="#9CA3AF" FontSize="12"
+                       VerticalAlignment="Center" Margin="12,0,0,0"/>
+        </StackPanel>
+
+        <Border Grid.Row="2" Background="White" BorderBrush="#E5E7EB" BorderThickness="1"
+                CornerRadius="10" ClipToBounds="True">
+            <DataGrid ItemsSource="{Binding FilteredUsers}" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID"           Binding="{Binding Id}"          Width="55"/>
+                    <DataGridTextColumn Header="Username"     Binding="{Binding Username}"    Width="140"/>
+                    <DataGridTextColumn Header="Email"        Binding="{Binding Email}"       Width="*"/>
+                    <DataGridTextColumn Header="{DynamicResource Users_ColRole}"          Binding="{Binding Role}"        Width="120"/>
+                    <DataGridTextColumn Header="{DynamicResource Users_ColCreated}"        Binding="{Binding CreatedAt,    StringFormat=dd/MM/yyyy}" Width="100"/>
+                    <DataGridTextColumn Header="{DynamicResource Users_ColLastLogin}"  Binding="{Binding LastLogin,    StringFormat=dd/MM/yyyy}" Width="110"/>
+                    <DataGridCheckBoxColumn Header="{DynamicResource Users_ColActive}"    Binding="{Binding IsActive}"    Width="60"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Grid Grid.Row="2" Background="#EFF6FF" Opacity="0.8"
+              Visibility="{Binding IsLoading, Converter={StaticResource BoolToVis}}">
+            <ProgressBar Width="200" Height="3" IsIndeterminate="True" VerticalAlignment="Center"
+                         Foreground="#2563EB" Background="Transparent" BorderThickness="0"/>
+        </Grid>
+    </Grid>
+</Page>
