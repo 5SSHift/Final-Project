@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Wpf</RootNamespace>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!-- Scoate App.xaml din Page ca să-l declarăm ca ApplicationDefinition -->
+  <ItemGroup>
+    <Page Remove="Views\AppManager\App.xaml" />
+    <Page Remove="Views\RegisterWindow.xaml" />
+    <Page Remove="Views\OtpWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="Views\AppManager\App.xaml" />
+  </ItemGroup>
+
+  <!-- LoginWindow și MainWindow sunt Window-uri — declarate explicit cu SubType corect -->
+  <ItemGroup>
+    <Page Remove="Views\LoginWindow.xaml" />
+    <Page Remove="Views\MainWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Views\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icon.ico" />
+    <Resource Include="Resources\Languages\ro-RO.xaml" />
+    <Resource Include="Resources\Languages\en-US.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+    <PackageReference Include="Dapper" Version="2.1.72" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
+  </ItemGroup>
+
+</Project>

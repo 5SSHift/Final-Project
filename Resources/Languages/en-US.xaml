@@ -1,0 +1,191 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- App -->
+    <sys:String x:Key="App_Name">ShopManager</sys:String>
+
+    <!-- Login -->
+    <sys:String x:Key="Login_Subtitle">Sign in to continue</sys:String>
+    <sys:String x:Key="Login_Username">Username</sys:String>
+    <sys:String x:Key="Login_Password">Password</sys:String>
+    <sys:String x:Key="Login_Button">Sign In</sys:String>
+    <sys:String x:Key="Login_NoAccount">Don't have an account?&#160;</sys:String>
+    <sys:String x:Key="Login_Register">Register</sys:String>
+
+    <!-- Register -->
+    <sys:String x:Key="Reg_Title">Create a new account</sys:String>
+    <sys:String x:Key="Reg_Name">Name *</sys:String>
+    <sys:String x:Key="Reg_Email">Email *</sys:String>
+    <sys:String x:Key="Reg_Username">Username *</sys:String>
+    <sys:String x:Key="Reg_Password">Password</sys:String>
+    <sys:String x:Key="Reg_ConfirmPassword">Confirm Password</sys:String>
+    <sys:String x:Key="Reg_Role">Role *</sys:String>
+    <sys:String x:Key="Reg_Button">Create Account</sys:String>
+
+    <!-- Navigation -->
+    <sys:String x:Key="Nav_AdminDash">  Admin Dashboard</sys:String>
+    <sys:String x:Key="Nav_Dashboard">📊  Dashboard</sys:String>
+    <sys:String x:Key="Nav_Shop">🏪  Shop</sys:String>
+    <sys:String x:Key="Nav_Products">📦  Products Data</sys:String>
+    <sys:String x:Key="Nav_Orders">🛒  Orders</sys:String>
+    <sys:String x:Key="Nav_Cart">🛒  Cart</sys:String>
+    <sys:String x:Key="Nav_Users">👥  Users</sys:String>
+    <sys:String x:Key="Nav_Settings">Settings</sys:String>
+    <sys:String x:Key="Nav_Logout">⏻  Sign Out</sys:String>
+
+    <!-- Dashboard page -->
+    <sys:String x:Key="Dash_InStock">in stock</sys:String>
+    <sys:String x:Key="Dash_Orders">orders</sys:String>
+    <sys:String x:Key="Dash_Registered">registered</sys:String>
+    <sys:String x:Key="Dash_Total">total</sys:String>
+    <sys:String x:Key="Dash_ActiveToken">Active RSA Token</sys:String>
+    <sys:String x:Key="Dash_User">User:</sys:String>
+    <sys:String x:Key="Dash_Role">Role:</sys:String>
+    <sys:String x:Key="Dash_Expires">Expires at:</sys:String>
+    <sys:String x:Key="Dash_SQLServer">SQL Server</sys:String>
+
+    <!-- Settings page -->
+    <sys:String x:Key="Settings_Title">Settings</sys:String>
+    <sys:String x:Key="Settings_DB">Database</sys:String>
+    <sys:String x:Key="Settings_DBServer">Server:</sys:String>
+    <sys:String x:Key="Settings_DBStatus">Status:</sys:String>
+    <sys:String x:Key="Settings_TestConn">Test Connection</sys:String>
+    <sys:String x:Key="Settings_Security">Authentication &amp; Security</sys:String>
+    <sys:String x:Key="Settings_SigAlgo">Signature Algorithm:</sys:String>
+    <sys:String x:Key="Settings_PassHash">Password Hashing:</sys:String>
+    <sys:String x:Key="Settings_TokenDur">Token Duration:</sys:String>
+    <sys:String x:Key="Settings_Roles">Roles:</sys:String>
+    <sys:String x:Key="Settings_AppInfo">Application</sys:String>
+    <sys:String x:Key="Settings_Version">Version:</sys:String>
+    <sys:String x:Key="Settings_Framework">Framework:</sys:String>
+    <sys:String x:Key="Settings_Language">Language</sys:String>
+    <sys:String x:Key="Settings_ChooseLang">Choose application language:</sys:String>
+    <sys:String x:Key="Settings_LangRO">🇷🇴  Română</sys:String>
+    <sys:String x:Key="Settings_LangEN">🇬🇧  English</sys:String>
+
+    <!-- Orders page -->
+    <sys:String x:Key="Orders_Title">Orders</sys:String>
+    <sys:String x:Key="Orders_Refresh">↻  Refresh</sys:String>
+    <sys:String x:Key="Orders_Details">Order Details</sys:String>
+    <sys:String x:Key="Orders_ColID">ID</sys:String>
+    <sys:String x:Key="Orders_ColClient">Client</sys:String>
+    <sys:String x:Key="Orders_ColDate">Date</sys:String>
+    <sys:String x:Key="Orders_ColStatus">Status</sys:String>
+    <sys:String x:Key="Orders_ColTotal">Total</sys:String>
+    <sys:String x:Key="Orders_ColAddress">Address</sys:String>
+    <sys:String x:Key="Orders_ColPayment">Payment</sys:String>
+    <sys:String x:Key="Orders_ColProduct">Product</sys:String>
+    <sys:String x:Key="Orders_ColQty">Quantity</sys:String>
+    <sys:String x:Key="Orders_ColUnitPrice">Unit Price</sys:String>
+    <sys:String x:Key="Orders_ColSubtotal">Subtotal</sys:String>
+    <sys:String x:Key="Orders_Approve">✓  Approve order</sys:String>
+    <sys:String x:Key="Orders_Reject">✕  Reject order</sys:String>
+    <sys:String x:Key="Orders_SelectHint">Select an order from the table to manage it.</sys:String>
+    <!-- Order status translations -->
+    <sys:String x:Key="OrderStatus_Pending">Pending</sys:String>
+    <sys:String x:Key="OrderStatus_Processing">Processing</sys:String>
+    <sys:String x:Key="OrderStatus_Shipped">Shipped</sys:String>
+    <sys:String x:Key="OrderStatus_Delivered">Delivered</sys:String>
+    <sys:String x:Key="OrderStatus_Cancelled">Cancelled</sys:String>
+    <sys:String x:Key="Orders_Deliver">📦  Mark as Delivered</sys:String>
+
+    <!-- Users page -->
+    <sys:String x:Key="Users_Title">Users</sys:String>
+    <sys:String x:Key="Users_FilterAll">All</sys:String>
+    <sys:String x:Key="Users_ColRole">Role</sys:String>
+    <sys:String x:Key="Users_ColCreated">Created</sys:String>
+    <sys:String x:Key="Users_ColLastLogin">Last Login</sys:String>
+    <sys:String x:Key="Users_ColActive">Active</sys:String>
+    <sys:String x:Key="Users_AddUser">＋ Add User</sys:String>
+    <sys:String x:Key="Users_FormTitle">Add / Edit User</sys:String>
+    <sys:String x:Key="Users_Save">💾  Save</sys:String>
+    <sys:String x:Key="Users_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Users_Delete">🗑  Delete</sys:String>
+    <sys:String x:Key="Users_Edit">✎  Edit</sys:String>
+
+    <!-- Products page -->
+    <sys:String x:Key="Prod_Title">Products</sys:String>
+    <sys:String x:Key="Prod_TitleData">Product List</sys:String>
+    <sys:String x:Key="Prod_Add">＋  Add</sys:String>
+    <sys:String x:Key="Prod_Edit">✎  Edit</sys:String>
+    <sys:String x:Key="Prod_Delete">🗑  Delete</sys:String>
+    <sys:String x:Key="Prod_Save">💾  Save</sys:String>
+    <sys:String x:Key="Prod_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Prod_FormTitle">Add / Edit Product</sys:String>
+    <sys:String x:Key="Prod_Name">Name *</sys:String>
+    <sys:String x:Key="Prod_Category">Category *</sys:String>
+    <sys:String x:Key="Prod_Price">Price (RON) *</sys:String>
+    <sys:String x:Key="Prod_Stock">Stock *</sys:String>
+    <sys:String x:Key="Prod_Discount">Discount (%)</sys:String>
+    <sys:String x:Key="Prod_Description">Description</sys:String>
+    <sys:String x:Key="Prod_Image">Image</sys:String>
+    <sys:String x:Key="Prod_Choose">📂  Choose</sys:String>
+    <sys:String x:Key="Prod_NoImage">No image</sys:String>
+    <sys:String x:Key="Prod_ImagePreview">Product Image</sys:String>
+    <sys:String x:Key="Prod_Reload">↻  Reload</sys:String>
+    <sys:String x:Key="Prod_Update">✎ Update</sys:String>
+    <sys:String x:Key="Prod_ChooseImg">📂 Choose Image</sys:String>
+    <sys:String x:Key="Prod_DeleteRow">🗑 Delete</sys:String>
+    <sys:String x:Key="Prod_AddRow">＋ Add</sys:String>
+
+    <!-- Cart page -->
+    <sys:String x:Key="Cart_Button">Cart</sys:String>
+    <sys:String x:Key="Cart_Title">My Cart</sys:String>
+    <sys:String x:Key="Cart_Empty">Cart is empty</sys:String>
+    <sys:String x:Key="Cart_EmptySub">Add products from the shop to continue</sys:String>
+    <sys:String x:Key="Cart_Summary">Order Summary</sys:String>
+    <sys:String x:Key="Cart_Subtotal">Subtotal</sys:String>
+    <sys:String x:Key="Cart_Delivery">Delivery</sys:String>
+    <sys:String x:Key="Cart_Free">Free</sys:String>
+    <sys:String x:Key="Cart_Discounts">Discounts</sys:String>
+    <sys:String x:Key="Cart_Total">TOTAL</sys:String>
+    <sys:String x:Key="Cart_Address">Shipping Address *</sys:String>
+    <sys:String x:Key="Cart_Payment">Payment Method</sys:String>
+    <sys:String x:Key="Cart_PlaceOrder">✓  Place Order</sys:String>
+    <sys:String x:Key="Cart_Clear">Clear Cart</sys:String>
+    <sys:String x:Key="Cart_ClearBtn">Clear</sys:String>
+    <sys:String x:Key="Cart_DeliveryInfo">Delivery Info</sys:String>
+    <sys:String x:Key="Cart_AddToCart">Add to Cart</sys:String>
+    <sys:String x:Key="Cart_NormalPrice">vs. normal price</sys:String>
+    <sys:String x:Key="Cart_SaveAmount">You save </sys:String>
+    <sys:String x:Key="Cart_Economy">Savings: </sys:String>
+
+    <!-- Client shop -->
+    <sys:String x:Key="Shop_Search">Search products...</sys:String>
+    <sys:String x:Key="Shop_Found"> products found</sys:String>
+    <sys:String x:Key="Shop_Special">Special Offer</sys:String>
+
+    <!-- Admin Dashboard -->
+    <sys:String x:Key="Admin_Title">Admin Dashboard</sys:String>
+    <sys:String x:Key="Admin_Manage">Manage products and users</sys:String>
+    <sys:String x:Key="Admin_Products">📦  Products</sys:String>
+    <sys:String x:Key="Admin_Users">👥  Users</sys:String>
+    <sys:String x:Key="Admin_UserList">Users List</sys:String>
+    <sys:String x:Key="Admin_ColUsername">Username</sys:String>
+    <sys:String x:Key="Admin_ColEmail">Email</sys:String>
+    <sys:String x:Key="Admin_ColRole">Role</sys:String>
+
+    <!-- Common -->
+    <sys:String x:Key="Common_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Common_Save">💾  Save</sys:String>
+    <sys:String x:Key="Common_Delete">🗑  Delete</sys:String>
+    <sys:String x:Key="Common_Edit">✎  Edit</sys:String>
+    <sys:String x:Key="Common_Add">＋  Add</sys:String>
+
+
+    <!-- Login preference -->
+    <sys:String x:Key="Login_Pref_Title">Sign-in at startup</sys:String>
+    <sys:String x:Key="Login_Pref_Subtitle">Choose how you want to sign in every time the application starts.</sys:String>
+    <sys:String x:Key="Login_Pref_Auto_Title">🚀  Open directly (auto-login)</sys:String>
+    <sys:String x:Key="Login_Pref_Auto_Desc">The application opens automatically based on your device fingerprint, without entering a password.</sys:String>
+    <sys:String x:Key="Login_Pref_Manual_Title">🔑  Always ask for password</sys:String>
+    <sys:String x:Key="Login_Pref_Manual_Desc">On every startup you will be redirected to the sign-in screen. Recommended on shared devices.</sys:String>
+
+
+    <!-- Users filter roles -->
+    <sys:String x:Key="Users_FilterAdmin">Administrator</sys:String>
+    <sys:String x:Key="Users_FilterEmployee">Employee</sys:String>
+    <sys:String x:Key="Users_FilterClient">Client</sys:String>
+
+</ResourceDictionary>

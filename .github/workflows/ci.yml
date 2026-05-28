@@ -1,0 +1,132 @@
+name: ShopManager CI/CD
+
+# Rulează la orice push pe main/develop sau Pull Request spre main
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 1: BUILD + RESTORE NuGet
+  # ─────────────────────────────────────────────────────────────────────────────
+  build:
+    name: 🔨 Build
+    runs-on: windows-latest        # WPF necesită Windows
+
+    steps:
+      - name: Checkout cod
+        uses: actions/checkout@v4
+
+      - name: Instalare .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: nuget-
+
+      - name: Restaurare dependențe NuGet
+        run: dotnet restore Wpf.csproj
+
+      - name: Build Release
+        run: dotnet build Wpf.csproj --configuration Release --no-restore
+
+      # Salvează artefactele build pentru job-urile următoare
+      - name: Upload artefact build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: bin/Release/
+          retention-days: 3
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 2: TESTE (rulează după build)
+  # ─────────────────────────────────────────────────────────────────────────────
+  test:
+    name: 🧪 Teste
+    runs-on: windows-latest
+    needs: build                   # așteaptă să treacă build-ul
+
+    services:
+      # Pornește SQL Server în container pentru teste de integrare
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: Practica2026!
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Practica2026! -Q 'SELECT 1'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout cod
+        uses: actions/checkout@v4
+
+      - name: Instalare .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restaurare dependențe NuGet
+        run: dotnet restore Wpf.csproj
+
+      - name: Rulare teste unitare
+        run: dotnet test Wpf.csproj --configuration Release --no-build --verbosity normal
+        env:
+          # Injectează connection string-ul pentru SQL Server din container
+          ConnectionStrings__DefaultConnection: >
+            Server=localhost,1433;Database=ShopManagerTest;
+            User Id=sa;Password=Practica2026!;
+            TrustServerCertificate=True;
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 3: PUBLISH — doar pe branch-ul main
+  # ─────────────────────────────────────────────────────────────────────────────
+  publish:
+    name: 📦 Publish
+    runs-on: windows-latest
+    needs: [ build, test ]         # necesită build + teste trecute
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout cod
+        uses: actions/checkout@v4
+
+      - name: Instalare .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restaurare dependențe NuGet
+        run: dotnet restore Wpf.csproj
+
+      - name: Publish self-contained (Windows x64)
+        run: >
+          dotnet publish Wpf.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained false
+          --output ./publish
+          /p:PublishSingleFile=false
+
+      - name: Creare arhivă ZIP
+        run: Compress-Archive -Path ./publish/* -DestinationPath ShopManager-${{ github.sha }}.zip
+        shell: pwsh
+
+      - name: Upload Release Asset
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShopManager-release-${{ github.sha }}
+          path: ShopManager-*.zip
+          retention-days: 30

@@ -1,0 +1,65 @@
+name: ShopManager Release
+
+# Rulează când creezi un tag de tipul v1.0.0
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: 🚀 Creare Release
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout cod
+        uses: actions/checkout@v4
+
+      - name: Instalare .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restaurare & Build
+        run: |
+          dotnet restore Wpf.csproj
+          dotnet build Wpf.csproj --configuration Release --no-restore
+
+      - name: Publish
+        run: >
+          dotnet publish Wpf.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained false
+          --output ./publish
+
+      - name: Creare ZIP
+        run: Compress-Archive -Path ./publish/* -DestinationPath ShopManager-${{ github.ref_name }}.zip
+        shell: pwsh
+
+      - name: Creare GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ShopManager ${{ github.ref_name }}
+          body: |
+            ## ShopManager ${{ github.ref_name }}
+
+            ### Ce este inclus
+            - Executabil Windows x64 (.NET 10 framework-dependent)
+            - Toate resursele (iconiță, dicționare de limbă)
+
+            ### Cerințe sistem
+            - Windows 10/11 x64
+            - .NET 10 Runtime instalat
+            - SQL Server 2019+ sau Docker (vezi docker-compose.yml)
+
+            ### Instalare
+            1. Descarcă ZIP-ul de mai jos
+            2. Dezarhivează
+            3. Configurează `App.config` cu connection string-ul tău
+            4. Rulează `Wpf.exe`
+          files: ShopManager-${{ github.ref_name }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
