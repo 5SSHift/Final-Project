@@ -86,7 +86,7 @@ jobs:
         env:
           # Injectează connection string-ul pentru SQL Server din container
           ConnectionStrings__DefaultConnection: >
-            Server=localhost,1433;Database=ShopManagerTest;
+            Server=localhost,1433;Database=Practica;
             User Id=sa;Password=Practica2026!;
             TrustServerCertificate=True;
 
